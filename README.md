@@ -7,7 +7,7 @@ An Ansible Role to perform automated patching of systems.  The Role checks to se
 | Variable Name | Required | Description | Default Value | Variable Type |
 | --- | :---: | --- | --- | :---: |
 | patch_display_patch_output | no | Whether or not to display output results of patching procedure | True | boolean |
-| patch_reboot_message | no | "Rebooting due to patching." | string |
+| patch_reboot_message | no | Wall message to pass to the shutdown -r command when a reboot is required due to patching activities. | "Rebooting due to patching." | string |
 
 
 # Example Playbook
