@@ -6,8 +6,9 @@ An Ansible Role to perform automated patching of systems.  The Role checks to se
 
 | Variable Name | Required | Description | Default Value | Variable Type |
 | --- | :---: | --- | --- | :---: |
-| patch_display_patch_output | no | Whether or not to display output results of patching procedure | True | boolean |
+| patch_display_patch_output | yes | Whether or not to display output results of patching procedure | True | boolean |
 | patch_reboot_message | no | Wall message to pass to the shutdown -r command when a reboot is required due to patching activities. | "Rebooting due to patching." | string |
+| patch_pkgs | no | List of specific packages to patch. **Patches all packages by default.** | ["*"] | list |
 
 
 # Example Playbook
@@ -19,6 +20,10 @@ An Ansible Role to perform automated patching of systems.  The Role checks to se
             name: "ahuffman.patching"
           vars:
             patch_display_patch_output: False
+            patch_pkgs:
+              - "yum"
+              - "httpd"
+              - "ansible"
 ```
 # License
 [MIT](LICENSE)

@@ -9,7 +9,7 @@
 
     - name: "Update packages"
       yum:
-        name: "*"
+        name: "{{ patch_pkgs | default('*') }}"
         state: "latest"
         update_cache: "yes"
       register: "yum_output"
@@ -38,7 +38,7 @@
 - name: "Handle reboot | Enterprise Linux"
   block:
     - name: "Reboot host"
-      shell: 'sleep 1 && shutdown -r now {{ patch_reboot_message }} && sleep 1'
+      shell: 'sleep 1 && shutdown -r now {{ patch_reboot_message | default('Rebooting due to patching.') }} && sleep 1'
       async: "1"
       poll: "0"
       ignore_errors: True

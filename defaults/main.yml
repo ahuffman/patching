@@ -1,3 +1,5 @@
 ---
 patch_display_patch_output: True
 patch_reboot_message: "Rebooting due to patching."
+patch_pkgs:
+  - "*"
