@@ -9,7 +9,8 @@ An Ansible Role to perform automated patching of systems.  The Role checks to se
 | patch_display_patch_output | yes | Whether or not to display output results of patching procedure | True | boolean |
 | patch_reboot_message | no | Wall message to pass to the shutdown -r command when a reboot is required due to patching activities. | "Rebooting due to patching." | string |
 | patch_pkgs | no | List of specific packages to patch. **Patches all packages by default.** | ["*"] | list |
-
+| patch_never_reboot | no | To ensure a system never reboots if a reboot is required post patching, set to True | False | boolean |
+| patch_never_restart_svc | no | To ensure services never restart if required post patching, set to True | False | boolean |
 
 # Example Playbook
 ```yaml
@@ -24,6 +25,8 @@ An Ansible Role to perform automated patching of systems.  The Role checks to se
               - "yum"
               - "httpd"
               - "ansible"
+            patch_never_reboot: True
+            patch_never_restart_svc: True
 ```
 # License
 [MIT](LICENSE)
