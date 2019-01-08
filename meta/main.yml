@@ -1,7 +1,7 @@
 galaxy_info:
   author: "Andrew J. Huffman"
-  description: "An Ansible Role to perform automated patching of systems.  The Role checks to see if services need restarting and also if the system needs a reboot due to patching."
-  #company: your company (optional)
+  description: "An Ansible Role to perform automated patching of systems."
+  company: "Red Hat"
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
@@ -16,7 +16,7 @@ galaxy_info:
   # - CC-BY
   license: "MIT"
 
-  min_ansible_version: "2.5"
+  min_ansible_version: "2.7"
 
   # If this a Container Enabled role, provide the minimum Ansible Container version.
   # min_ansible_container_version:

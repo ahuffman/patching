@@ -6,13 +6,18 @@
       yum:
         name: "yum-utils"
         state: "latest"
+      register: "patch_utils_installed"
+      retries: "3"
+      until: "patch_utils_installed is succeeded"
 
     - name: "Update packages"
       yum:
         name: "{{ patch_pkgs | default('*') }}"
         state: "latest"
         update_cache: "yes"
-      register: "yum_output"
+      register: "patch_yum_results"
+      retries: "3"
+      until: "patch_yum_results is succeeded"
 
     - name: "Check if services need restarting"
       command: 'needs-restarting -s'
@@ -29,29 +34,15 @@
 
     - name: "Output collected yum update output"
       debug:
-         var: "yum_output.results"
+         var: "patch_yum_results.results"
       when: "patch_display_patch_output"
   when:
     - 'ansible_os_family == "RedHat"'
     - 'ansible_distribution_major_version == "7"'
 
 - name: "Handle reboot | Enterprise Linux"
-  block:
-    - name: "Reboot host"
-      shell: 'sleep 1 && shutdown -r now {{ patch_reboot_message | default('Rebooting due to patching.') }} && sleep 1'
-      async: "1"
-      poll: "0"
-      ignore_errors: True
-
-    - name: "Ensure host comes back online"
-      local_action:
-        module: "wait_for"
-        host: "{{ inventory_hostname }}"
-        port: "22"
-        delay: "30"
-        sleep: "15"
-        timeout: "600"
-        msg: "Can't connect to {{ inventory_hostname }} after 10 minutes"
+  reboot:
+    msg: "{{ patch_reboot_message | default('Rebooting due to patching.') }}"
   when:
     - 'ansible_os_family == "RedHat"'
     - 'ansible_distribution_major_version == "7"'

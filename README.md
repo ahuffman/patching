@@ -3,11 +3,10 @@
 An Ansible Role to perform automated patching of systems.  The Role checks to see if services need restarting and also if the system needs a reboot due to patching.
 
 # Role Variables
-
 | Variable Name | Required | Description | Default Value | Variable Type |
 | --- | :---: | --- | --- | :---: |
 | patch_display_patch_output | yes | Whether or not to display output results of patching procedure | True | boolean |
-| patch_reboot_message | no | Wall message to pass to the shutdown -r command when a reboot is required due to patching activities. | "Rebooting due to patching." | string |
+| patch_reboot_message | no | Message to pass to the reboot module when a reboot is required due to patching activities. | "Rebooting due to patching." | string |
 | patch_pkgs | no | List of specific packages to patch. **Patches all packages by default.** | ["*"] | list |
 | patch_never_reboot | no | To ensure a system never reboots if a reboot is required post patching, set to True | False | boolean |
 | patch_never_restart_svc | no | To ensure services never restart if required post patching, set to True | False | boolean |
