@@ -26,12 +26,14 @@
       register: "needs_service_restart"
       notify:
         - "Restart required services"
+      when: 'not patch_never_restart_svc'
 
     - name: "Check if reboot is required"
       command:  'needs-restarting -r'
       changed_when: "needs_reboot.rc == 1"
       failed_when: "needs_reboot.rc > 1"
       register: "needs_reboot"
+      when: 'not patch_never_reboot'
 
     - name: "Output collected yum update output"
       debug:
