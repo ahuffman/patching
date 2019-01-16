@@ -33,6 +33,8 @@
       changed_when: "needs_reboot.rc == 1"
       failed_when: "needs_reboot.rc > 1"
       register: "needs_reboot"
+      notify:
+        - "Reboot after patching"
       when: 'not patch_never_reboot'
 
     - name: "Output collected yum update output"
@@ -43,12 +45,3 @@
     - 'ansible_os_family == "RedHat"'
     - 'ansible_distribution_major_version == "7"'
   become: True
-
-- name: "Handle reboot | Enterprise Linux"
-  reboot:
-    msg: "{{ patch_reboot_message | default('Rebooting due to patching.') }}"
-  when:
-    - 'ansible_os_family == "RedHat"'
-    - 'ansible_distribution_major_version == "7"'
-    - 'needs_reboot.rc == 1'
-    - 'not patch_never_reboot'
