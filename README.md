@@ -1,3 +1,5 @@
+![Ansible Role](https://img.shields.io/ansible/role/d/30634)
+
 # ahuffman.patching
 
 An Ansible Role to perform automated patching of systems.  The Role checks to see if services need restarting and also if the system needs a reboot due to patching.
